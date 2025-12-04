@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Registration</title>
+</head>
+<body>
+
+    <div class="container">
+        <h2>User Registration</h2>
+
+       
+        <form name="regForm" onsubmit="return validateForm()">
+            
+            
+            <label for="fname">Full Name:</label>
+            <input type="text" id="fname" name="fname">
+            <div id="fnameError" class="error"></div>
+
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <div id="emailError" class="error"></div>
+
+            
+            <label for="mob">Mobile No (10 digits):</label>
+            <input type="tel" id="mob" name="mob" maxlength="10">
+            <div id="mobError" class="error"></div>
+
+            
+            <label for="passcode">Password (Min 8 Chars):</label>
+            <input type="password" id="passcode" name="passcode">
+            <div id="passcodeError" class="error"></div>
+
+           
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        
+        function clearErrors() {
+            
+            const errorElements = document.querySelectorAll('.error');
+            errorElements.forEach(el => el.textContent = '');
+        }
+
+        function displayError(id, message) {
+            const errorElement = document.getElementById(id);
+            if (errorElement) {
+                errorElement.textContent = message;
+                
+                errorElement.style.color = 'red'; 
+            }
+        }
+
+        function validateForm() {
+            clearErrors(); 
+
+            const form = document.regForm;
+            const fname = form.fname.value.trim();
+            const email = form.email.value.trim();
+            const mob = form.mob.value.trim();
+            const passcode = form.passcode.value;
+            
+            let isValid = true;
+            
+           
+            const namePattern = /^[A-Za-z\s]+$/;
+           
+            const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9\s]).{8,}$/;
+            
+            
+            if (fname === "") {
+                displayError('fnameError', "Full Name is required.");
+                isValid = false;
+            } else if (!namePattern.test(fname)) {
+                displayError('fnameError', "Name must contain only letters and spaces.");
+                isValid = false;
+            }
+
+            
+            if (email === "") {
+                displayError('emailError', "Email is required.");
+                isValid = false;
+            } 
+            
+            
+            if (mob === "") {
+                displayError('mobError', "Mobile number is required.");
+                isValid = false;
+            } else if (mob.length !== 10 || isNaN(mob) || mob.includes('.')) {
+                displayError('mobError', "Enter a valid 10-digit mobile number.");
+                isValid = false;
+            }
+
+         
+            if (passcode === "") {
+                displayError('passcodeError', "Password is required.");
+                isValid = false;
+            } else if (passcode.length < 8) {
+                displayError('passcodeError', "Password must be at least 8 characters long.");
+                isValid = false;
+            } else if (!passwordRegex.test(passcode)) {
+                displayError('passcodeError', "Password must be complex (upper, lower, digit, special char).");
+                isValid = false;
+            }
+
+            if (isValid) {
+                
+                console.log("Registration Successful! Data would be sent to server now.");
+                
+                return false; 
+            }
+
+          
+            return false;
+        }
+    </script>
+</body>
+</html> 
