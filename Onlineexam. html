@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Online Exam</title>
+<style>
+body {
+font-family: Arial,sans-serif; 
+background: #f4f4f4; 
+padding: 20px;
+}
+.exam-box { 
+background: #fff; 
+padding: 20px; 
+max-width: 600px; 
+margin: auto; 
+border-radius: 5px;
+}
+button {
+margin-top: 15px; 
+padding: 10px 20px; 
+font-size: 15px; 
+cursor: pointer;
+}
+.result {
+font-size: 18px; 
+margin-top: 20px; 
+font-weight: bold;
+}
+</style>
+</head>
+<body>
+<div class="exam-box">
+<h2>Online Exam</h2>
+<form id="examForm">
+<p>1. JavaScript is a language.</p>
+<input type="radio" name="q1" value="a"> Markup<br>
+<input type="radio" name="q1" value="b"> Programming<br>
+<input type="radio" name="q1" value="c"> Styling<br><br>
+<p>2. Which tag is used to write JavaScript?</p>
+<input type="radio" name="q2" value="a"> &lt;js&gt;<br>
+<input type="radio" name="q2" value="b"> &lt;javascript&gt;<br>
+<input type="radio" name="q2" value="c"> &lt;script&gt;<br><br>
+<p>3. Which keyword is used to declare a variable?</p>
+<input type="radio" name="q3" value="a"> int<br>
+<input type="radio" name="q3" value="b"> var<br>
+<input type="radio" name="q3" value="c"> string<br><br>
+<button type="button" onclick="submitExam()">Submit Exam</button>
+</form>
+<div class="result" id="result"></div>
+</div>
+<script>
+function submitExam() { 
+let score = 0;
+if (document.querySelector('input[name="q1"]:checked')?.value === "b") score++; 
+if (document.querySelector('input[name="q2"]:checked')?.value === "c") score++; 
+if (document.querySelector('input[name="q3"]:checked')?.value === "b") score++;
+document.getElementById("result").innerHTML = 
+"Your Score: " + score + " / 3";
+}
+</script>
+</body>
+</html>
