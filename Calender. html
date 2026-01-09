@@ -1,0 +1,69 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JavaScript Calendar</title>
+
+  <script>
+    function generateCalendar() {
+      let year = document.getElementById("year").value;
+
+      if (year == "") {
+        alert("Please enter a year");
+        return;
+      }
+
+      let months = [
+        "January","February","March","April","May","June",
+        "July","August","September","October","November","December"
+      ];
+
+      let days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+      let output = "";
+
+      for (let m = 0; m < 12; m++) {
+        let firstDay = new Date(year, m, 1).getDay();
+        let totalDays = new Date(year, m + 1, 0).getDate();
+
+        output += "<h3>" + months[m] + " " + year + "</h3>";
+        output += "<table border='1'><tr>";
+
+        for (let d = 0; d < 7; d++) {
+          output += "<th>" + days[d] + "</th>";
+        }
+        output += "</tr><tr>";
+
+        for (let i = 0; i < firstDay; i++) {
+          output += "<td></td>";
+        }
+
+        for (let date = 1; date <= totalDays; date++) {
+          if ((date + firstDay - 1) % 7 == 0) {
+            output += "</tr><tr>";
+          }
+          output += "<td>" + date + "</td>";
+        }
+
+        output += "</tr></table><br>";
+      }
+
+      document.getElementById("calendar").innerHTML = output;
+    }
+  </script>
+</head>
+
+<body>
+
+  <h2>Calendar Generator</h2>
+
+  Enter Year:
+  <input type="number" id="year">
+  <button onclick="generateCalendar()">Generate</button>
+
+  <div id="calendar"></div>
+
+</body>
+</html>
