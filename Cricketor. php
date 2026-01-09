@@ -1,0 +1,50 @@
+<?php
+$players = array(
+" Virat Kohli ", 
+"Rohit Sharma", 
+" MS Dhoni ", 
+"Jasprit Bumrah", 
+" Ravindra Jadeja "
+);
+$cleanedPlayers = array_map(function($name) {
+$name = trim($name);
+$name = preg_replace('/\s+/', ' ', $name); 
+return $name;
+}, $players);
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Indian Cricket Players</title>
+<style>
+table {
+border-collapse: collapse; 
+width: 50%;
+}
+th, td {
+border: 1px solid black;
+padding: 8px; 
+text-align: center;
+}
+th {
+background-color: #f2f2f2;
+}
+</style>
+</head>
+<body>
+<h2>List of Indian Cricket Players</h2>
+<table>
+<tr>
+<th>Serial No.</th>
+<th>Player Name</th>
+</tr>
+<?php
+$serial = 1;
+foreach($cleanedPlayers as $player) {
+echo "<tr><td>".$serial."</td><td>".$player."</td></tr>";
+$serial++;
+}
+?>
+</table>
+</body>
+</html>
